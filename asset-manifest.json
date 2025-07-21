@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/lotto-generator/static/css/main.ddabf8e5.css",
+    "main.css": "/lotto-generator/static/css/main.13dd464b.css",
     "main.js": "/lotto-generator/static/js/main.07272ed4.js",
     "static/js/453.c6b1acf5.chunk.js": "/lotto-generator/static/js/453.c6b1acf5.chunk.js",
     "index.html": "/lotto-generator/index.html",
-    "main.ddabf8e5.css.map": "/lotto-generator/static/css/main.ddabf8e5.css.map",
+    "main.13dd464b.css.map": "/lotto-generator/static/css/main.13dd464b.css.map",
     "main.07272ed4.js.map": "/lotto-generator/static/js/main.07272ed4.js.map",
     "453.c6b1acf5.chunk.js.map": "/lotto-generator/static/js/453.c6b1acf5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ddabf8e5.css",
+    "static/css/main.13dd464b.css",
     "static/js/main.07272ed4.js"
   ]
 }
