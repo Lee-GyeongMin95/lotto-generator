@@ -1,0 +1,485 @@
+.App {
+  text-align: center;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+}
+
+.App-header {
+  background-color: #4a90e2;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+/* 2D Sphere Animation */
+.lotto-machine-2d-sphere {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 10px auto;
+  background: radial-gradient(circle at 65% 35%, white, #d4e4f7, #a8c0d8);
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: inset -15px -15px 40px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.bouncing-ball {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  animation-name: bounce-sphere;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bounce-sphere {
+  0% {
+    transform: translate(
+      calc(-50% + (var(--i) - 0.5) * 200px),
+      calc(-50% + (var(--j) - 0.5) * 200px)
+    ) scale(1);
+  }
+  50% {
+    transform: translate(
+      calc(-50% + (var(--j) - 0.5) * 50px),
+      calc(-50% + (var(--i) - 0.5) * 50px)
+    ) scale(1.1);
+  }
+  100% {
+    transform: translate(
+      calc(-50% + (var(--i) - 0.5) * 200px),
+      calc(-50% + (var(--j) - 0.5) * 200px)
+    ) scale(1);
+  }
+}
+
+.ball-color-0 { background-color: #ef5350; } /* red */
+.ball-color-1 { background-color: #ffeb3b; } /* yellow */
+.ball-color-2 { background-color: #66bb6a; } /* green */
+.ball-color-3 { background-color: #42a5f5; } /* blue */
+.ball-color-4 { background-color: #ab47bc; } /* purple */
+
+.controls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.generation-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #e9ecef;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.toggle-btn {
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  color: #495057;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.toggle-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.toggle-btn:disabled {
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.generate-btn, .manual-add-btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.generate-btn { background: linear-gradient(145deg, #5d9cec, #4a90e2); }
+.manual-add-btn { background: linear-gradient(145deg, #66bb6a, #4caf50); }
+
+.generate-btn:disabled, .manual-add-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.generate-btn:hover:not(:disabled), .manual-add-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: nowrap;
+}
+
+.manual-selection-area {
+  flex-basis: 480px;
+  flex-grow: 0;
+  max-width: 480px;
+}
+
+.notes-area {
+  flex-basis: 300px;
+  flex-grow: 1;
+  max-width: 300px;
+  min-height: 600px; /* Adjusted to align with grid and expanded notes */
+}
+
+.manual-selection-area h3, .notes-area h3 {
+    margin-top: 0;
+    color: #343a40;
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.number-ball {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: 2px solid #dee2e6;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.number-ball:hover {
+  transform: scale(1.1);
+}
+
+.number-ball.manual-selected {
+  color: white;
+  transform: scale(1.05);
+  border: 2px solid rgba(0,0,0,0.2);
+}
+
+.number-ball.highlighted {
+  border: 3px solid #007bff; /* Highlight color */
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+}
+
+.note {
+  position: absolute; /* 이 줄은 필수입니다! */
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  min-height: 600px; /* Ensure enough space for notes */
+
+  /* 전환 효과 추가: transform에 부드러운 변화를 줍니다. */
+  transition: transform 0.3s ease-out,
+              z-index 0s linear 0.3s;
+  /* z-index는 transform 애니메이션이 끝난 후 적용되도록 딜레이를 줍니다. */
+}
+
+.notes-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 600px; /* Ensure enough space for notes */
+  transition: all 0.3s ease-in-out; /*노트 겹치기*/
+}
+/* 마우스 오버 시 적용될 스타일 */
+.note:hover {
+  transform: translateY(-10px); /* 위로 10px 살짝 올라옴 */
+  
+}
+
+.note-ticket-container {
+  position: absolute;
+  width: 100%;
+  
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  left: 0;
+  cursor: pointer;
+  display: flex;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+.notes-area.expandable.expanded .note-ticket-container {
+  position: relative; /* Change to relative for vertical stacking */
+  margin-bottom: 10px; /* Space between expanded notes */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.note-ticket {
+  flex-grow: 1;
+  padding: 15px;
+  text-align: left;
+  font-size: 0.9em;
+  color: #333;
+  position: relative;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  border-right: 1px dashed #ccc;
+}
+
+.note-ticket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(-45deg, #f8f8f8 5px, transparent 0) 0 5px,
+              linear-gradient(45deg, #f8f8f8 5px, transparent 0) 10px 5px;
+  background-size: 10px 10px;
+  background-repeat: repeat-x;
+}
+
+.note-ticket::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(-45deg, transparent 5px, #f8f8f8 0) 0 5px,
+              linear-gradient(45deg, transparent 5px, #f8f8f8 0) 10px 5px;
+  background-size: 10px 10px;
+  background-repeat: repeat-x;
+}
+
+.note-ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.lotto-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #e91e63;
+}
+
+.qr-code-placeholder {
+  width: 50px;
+  height: 50px;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.round-info {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.date-info {
+  font-size: 0.85em;
+  margin-bottom: 3px;
+}
+
+.barcode-placeholder-top, .barcode-placeholder-bottom {
+  width: 100%;
+  height: 15px;
+  background: repeating-linear-gradient(90deg, #333, #333 2px, transparent 2px, transparent 4px);
+  margin: 10px 0;
+}
+
+.prediction-list {
+  margin-bottom: 10px;
+}
+
+.prediction-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+  font-size: 1em;
+}
+
+.prediction-char {
+  font-weight: bold;
+  width: 1.2em;
+  margin-right: 5px;
+}
+
+.prediction-type {
+  width: 3.5em;
+  margin-right: 8px;
+  font-size: 0.9em;
+}
+
+.prediction-number {
+  display: inline-block;
+  width: 2.2em;
+  text-align: center;
+  margin-right: 2px;
+  font-weight: bold;
+}
+
+.amount-info {
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.amount-value {
+  color: #e91e63;
+}
+
+.pink-sidebar {
+  width: 20px;
+  background-color: #ffc0cb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7em;
+  color: #fff;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding: 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.delete-note-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  width: 25px;
+  height: 25px;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.delete-note-btn:hover {
+  opacity: 1;
+}
+
+/* Modal Styles */
+.note-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.note-modal-content {
+  position: relative;
+  width: 320px; /* Adjust as needed */
+  
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  display: flex;
+}
+
+.note-modal-content .note-ticket-container {
+  position: static;
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+  border: none;
+}
+
+.note-modal-content .note-ticket {
+  border-right: none;
+}
+
+.note-modal-content .pink-sidebar {
+  border-left: 1px dashed #ccc;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  width: 30px;
+  height: 30px;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.close-modal-btn:hover {
+  opacity: 1;
+}
+
+/* Color Styles */
+.yellow-ball { background-color: #ffeb3b; color: #333; }
+.blue-ball { background-color: #42a5f5; }
+.red-ball { background-color: #ef5350; }
+.black-ball { background-color: #424242; }
+.green-ball { background-color: #66bb6a; }
+.purple-ball { background-color: #ab47bc; }
